@@ -14,18 +14,16 @@ const SignInPage = () => (
   </div>
 );
 
-const INIT_SIGNUP = {
-  username: '',
+const INIT_SIGNIN = {
   email: '',
   password: '',
-  passwordRepeat: '',
   error: null,
 };
 class SignInFormBase extends Component {
     constructor (props) {
       super(props);
 
-      this.state = { ...INIT_SIGNUP };
+      this.state = { ...INIT_SIGNIN };
     }
 
     onSubmit = event => {
@@ -33,7 +31,7 @@ class SignInFormBase extends Component {
 
       this.props.firebase.doSigninWithEmailAndPassword (email,password)
         .then(authUser => {
-          this.setState({...INIT_SIGNUP});
+          this.setState({...INIT_SIGNIN});
           this.props.history.push(ROUTES.HOME);
         }).catch(error => {
           this.setState({ error });
@@ -48,30 +46,13 @@ class SignInFormBase extends Component {
 
     render() {
       const {
-        username,
         email,
         password,
-        passwordRepeat,
         error,
       } = this.state;
 
-      const isInvalid =
-        passwordRepeat !== passwordRepeat ||
-        password === '' ||
-        email === '' ||
-        username === '';
-
-      console.log(isInvalid);
-
       return (
         <form onSubmit={this.onSubmit}>
-          <input
-            name="username"
-            value={username}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Enter Username"
-          />
           <input
             name="email"
             value={email}
@@ -86,14 +67,7 @@ class SignInFormBase extends Component {
             type="password"
             placeholder="Password"
           />
-          <input
-            name="confirmPassword"
-            value={passwordRepeat}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Password"
-          />
-          <button diabled={isInvalid} type="submit">Sign Up</button>
+          <button type="submit">Sign Up</button>
           
           {error && <p>{error.message}</p>}
         </form>
