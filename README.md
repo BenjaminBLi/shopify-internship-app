@@ -9,6 +9,7 @@ Upload files to a cloud storage - view images other people upload as well.
 
 ## Front end
 
+![stuff](./images/frontend)
 - built using basic react
 
 ## Backend
