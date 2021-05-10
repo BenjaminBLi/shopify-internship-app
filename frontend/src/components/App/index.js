@@ -14,9 +14,13 @@ import HomePage from '../Home'
 import AccountPage from '../Account'
 import AdminPage from '../Admin'
 
+import { RainbowFirebaseApp } from '@rainbow-modules/app';
+import { ImageGallery } from '@rainbow-modules/storage';
+import { Card } from 'react-rainbow-components';
 import { withFirebase } from '../Firebase';
 import { AuthUserContext } from '../Session';
 import * as ROUTES from '../../constants/routes';
+import { StorageConext } from '../Session/context';
 
 class App extends Component {
   constructor(props){
@@ -24,6 +28,7 @@ class App extends Component {
 
     this.state = {
       authUser: null,
+      storage: this.props.firebase.storage,
     };
   }
 
@@ -43,22 +48,24 @@ class App extends Component {
 
   render() {
     return (
-      <AuthUserContext.Provider value={this.state.authUser} >
-        <Router>
-          <div>
-            <Navigation />
-            <hr />
+        <AuthUserContext.Provider value={this.state.authUser} >
+          <StorageConext.Provider value={this.state.storage} >
+          <Router>
+            <div>
+              <Navigation />
+              <hr />
 
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
-            <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
-            <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-            <Route exact path={ROUTES.HOME} component={HomePage} />
-            <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
-            <Route exact path={ROUTES.ADMIN} component={AdminPage} />
-          </div>
-        </Router>
-      </AuthUserContext.Provider>
+              <Route exact path={ROUTES.LANDING} component={LandingPage} />
+              <Route exact path={ROUTES.SIGN_IN} component={SignInPage} />
+              <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />
+              <Route exact path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+              <Route exact path={ROUTES.HOME} component={HomePage} />
+              <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
+              <Route exact path={ROUTES.ADMIN} component={AdminPage} />
+            </div>
+          </Router>
+          </StorageConext.Provider>
+        </AuthUserContext.Provider>
     );
   }
 }

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@google-cloud/storage": "^5.8.5",
     "@rainbow-modules/app": "^0.35.0",
     "@rainbow-modules/storage": "^0.35.0",
     "@testing-library/jest-dom": "^5.11.4",
